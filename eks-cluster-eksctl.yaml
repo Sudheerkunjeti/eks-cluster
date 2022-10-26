@@ -8,8 +8,6 @@ metadata:
     cst: "<project tag>"
     prj: "<project tag>"
     env: "dev"
-    owner: "cloudops"
-    stack: "ms"
   region: <region>
   version: "<version>"
 
