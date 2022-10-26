@@ -5,8 +5,6 @@ metadata:
   name: <Cluster Name>
   tags:
     # EC2 tags required for cluster-autoscaler auto-discovery
-    cst: "<project tag>"
-    prj: "<project tag>"
     env: "dev"
   region: <region>
   version: "<version>"
