@@ -1,0 +1,59 @@
+---
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+metadata:
+  name: <Cluster Name>
+  tags:
+    # EC2 tags required for cluster-autoscaler auto-discovery
+    cst: "<project tag>"
+    prj: "<project tag>"
+    env: "dev"
+    owner: "cloudops"
+    stack: "ms"
+  region: <region>
+  version: "<version>"
+
+iam:
+  withOIDC: true
+
+addons:
+  - name: vpc-cni
+    version: "latest"
+  - name: kube-proxy
+    version: "latest"
+  - name: coredns
+    version: "latest"
+
+cloudwatch:
+  clusterLogging:
+    enableTypes:
+      - "audit"
+      - "authenticator"
+
+vpc:
+  id: <vpc-id>
+  subnets:
+    private:
+      us-east-1a:
+        id: <subnet-id>
+      us-east-1b:
+        id: <subnet-id>
+    public:
+      us-east-1a:
+        id: <subnet-id>
+      us-east-1b:
+        id: <subnet-id>
+
+managedNodeGroups:
+  - name: <node group name>
+    tags:
+      # EC2 tags required for cluster-autoscaler auto-discovery
+      env: "<Env>"
+    privateNetworking: true
+    instanceType: <Instance type>
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 10
+    volumeSize: 50
+    ssh:
+      publicKeyName: <pem.key>
